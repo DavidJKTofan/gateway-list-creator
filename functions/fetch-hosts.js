@@ -1,4 +1,4 @@
-export async function onRequest(context) {
+export async function onRequest(context, { request, env }) {
   if (request.method === "OPTIONS") {
     // Handle preflight requests
     return new Response(null, {
