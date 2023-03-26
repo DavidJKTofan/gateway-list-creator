@@ -1,4 +1,8 @@
-export async function onRequest(context, { request, env }) {
+export async function onRequestPost({ request, env }) {
+	return await submitHandler({ request, env });
+}
+
+async function submitHandler({ request, env }) {
   if (request.method === "OPTIONS") {
     // Handle preflight requests
     return new Response(null, {
