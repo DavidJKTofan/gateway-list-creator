@@ -30,8 +30,9 @@ async function submitHandler({ request, env }) {
       let response = await fetch(url);
       let responseBody = await response.text();
       let lines = responseBody.split("\n");
+      // Limit the number of lines to a maximum of 4999 rows
+      lines = lines.slice(1, 5000);
       // lines = lines.filter((line) => line.startsWith("0.0.0.0"));
-      // lines = lines.slice(1, 5000);
       // var len = lines.length;
       // var i = 0;
       // while (i < len) {

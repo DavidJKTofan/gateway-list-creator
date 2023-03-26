@@ -6,14 +6,23 @@
   </head>
   <body>
     <h1>Convert Hostname to CSV file</h1>
+    <p>
+      Fetch the first 4999 hostnames from a list from
+      <a
+        href="https://filterlists.com/"
+        target="_blank"
+        rel="nofollow external noopener noreferrer"
+        >FilterLists</a
+      >
+    </p>
     <form id="url-form">
       <label for="url-input">URL:</label>
       <input type="url" id="url-input" name="url" required />
       <br /><br />
-      <input type="radio" id="hosts" name="type" value="hosts" checked />
+      <input type="radio" id="hosts" name="type" value="hosts" checked required />
       <label for="hosts">Fetch hosts</label>
       <br />
-      <input type="radio" id="domains" name="type" value="domains" />
+      <input type="radio" id="domains" name="type" value="domains" required />
       <label for="domains">Fetch domains</label>
       <br /><br />
       <button type="submit">Fetch</button>
