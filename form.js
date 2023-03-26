@@ -5,14 +5,23 @@ form.addEventListener("submit", async (event) => {
   event.preventDefault();
   const formData = new FormData(form);
   const url = formData.get("url");
+  const type = formData.get("type");
 
-  const lastPart = url
-    .substring(url.lastIndexOf("/") + 1)
-    .replace(/\.[^/.]+$/, "");
+  if (!isValidUrl(url)) {
+    resultDiv.innerHTML = "Error: Please enter a valid URL.";
+    return;
+  }
 
-  resultDiv.innerHTML = "Fetching hosts...";
+  let endpoint;
+  if (type === "domains") {
+    endpoint = "/fetch-domains";
+  } else {
+    endpoint = "/fetch-hosts";
+  }
 
-  const response = await fetch("/fetch-hosts", {
+  resultDiv.innerHTML = `Fetching ${type}...`;
+
+  const response = await fetch(endpoint, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -28,8 +37,21 @@ form.addEventListener("submit", async (event) => {
   const csvBlob = await response.blob();
   const csvUrl = window.URL.createObjectURL(csvBlob);
 
+  const lastPart = url
+    .substring(url.lastIndexOf("/") + 1)
+    .replace(/\.[^/.]+$/, "");
+
   resultDiv.innerHTML = `
-          <p>Download the hosts CSV file:</p>
-          <a href="${csvUrl}" download="${lastPart}.csv">${lastPart}.csv</a>
+  <p>Download the ${type} CSV file:</p>
+  <a href="${csvUrl}" download="${lastPart}-${type}.csv">${lastPart}-${type}.csv</a>
         `;
 });
+
+function isValidUrl(url) {
+  try {
+    new URL(url);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}

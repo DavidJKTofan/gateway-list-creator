@@ -1,5 +1,5 @@
 export async function onRequestPost({ request, env }) {
-	return await submitHandler({ request, env });
+  return await submitHandler({ request, env });
 }
 
 async function submitHandler({ request, env }) {
@@ -13,6 +13,7 @@ async function submitHandler({ request, env }) {
       },
     });
   } else if (request.method === "GET") {
+    console.log("You are using this wrong :)");
     return new Response("You are using this wrong :)", {
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -29,14 +30,26 @@ async function submitHandler({ request, env }) {
       let response = await fetch(url);
       let responseBody = await response.text();
       let lines = responseBody.split("\n");
-      lines = lines.filter((line) => line.startsWith("0.0.0.0"));
-      lines = lines.slice(1, 5000);
-      var len = lines.length;
-      var i = 0;
-      while (i < len) {
-        let domain = lines[i].split(" ")[1];
-        domains.push(domain);
-        i++;
+      // lines = lines.filter((line) => line.startsWith("0.0.0.0"));
+      // lines = lines.slice(1, 5000);
+      // var len = lines.length;
+      // var i = 0;
+      // while (i < len) {
+      //   let domain = lines[i].split(" ")[1];
+      //   domains.push(domain);
+      //   i++;
+      // }
+      for (let i = 0; i < lines.length; i++) {
+        let line = lines[i].trim();
+        if (line.startsWith("||")) {
+          // Adblock Plus syntax rule
+          let domain = line.slice(2).split("^")[0];
+          domains.push(domain);
+        } else if (line.startsWith("0.0.0.0")) {
+          // Hosts file syntax rule
+          let domain = line.split(" ")[1];
+          domains.push(domain);
+        }
       }
 
       // Convert the domains to a CSV string

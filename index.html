@@ -8,8 +8,15 @@
     <h1>Convert Hostname to CSV file</h1>
     <form id="url-form">
       <label for="url-input">URL:</label>
-      <input type="text" id="url-input" name="url" />
-      <button type="submit">Fetch Hosts</button>
+      <input type="url" id="url-input" name="url" required />
+      <br /><br />
+      <input type="radio" id="hosts" name="type" value="hosts" checked />
+      <label for="hosts">Fetch hosts</label>
+      <br />
+      <input type="radio" id="domains" name="type" value="domains" />
+      <label for="domains">Fetch domains</label>
+      <br /><br />
+      <button type="submit">Fetch</button>
     </form>
 
     <div id="result"></div>
