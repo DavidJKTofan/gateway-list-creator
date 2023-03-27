@@ -48,8 +48,10 @@ async function submitHandler({ request, env }) {
           list_domains.push({"value": domain });
         }
       }
+      const joineddomains = list_domains.join("\n");
+      // const joineddomains = JSON.stringify(list_domains);
       // Create a new Response object
-      const dataResponse = new Response(domains, {
+      const dataResponse = new Response(joineddomains, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
