@@ -27,6 +27,7 @@ async function submitHandler({ request, env }) {
     // Get Domains / Hostnames
     try {
       let domains = [];
+      let list_domains = [];
       let response = await fetch(url);
       let responseBody = await response.text();
       let lines = responseBody.split("\n");
@@ -39,26 +40,23 @@ async function submitHandler({ request, env }) {
           // Adblock Plus syntax rule
           let domain = line.slice(2).split("^")[0];
           domains.push(domain);
+          list_domains.push({"value": domain });
         } else if (line.startsWith("0.0.0.0")) {
           // Hosts file syntax rule
           let domain = line.split(" ")[1];
           domains.push(domain);
+          list_domains.push({"value": domain });
         }
       }
-      // Convert the domains to a CSV string
-      const csvString = domains.join("\n");
-      // Get the filename from the URL
-      const urlObj = new URL(url);
-      const filename = urlObj.pathname.split("/").pop();
       // Create a new Response object with the CSV string and set its MIME type to "text/csv"
-      const csvResponse = new Response(csvString, {
-        headers: {
-          "Content-Type": "text/csv",
-          "Content-Disposition": `attachment; filename="${filename}.csv"`,
-          "Access-Control-Allow-Origin": "*",
-        },
-      });
-      return csvResponse;
+      // const csvResponse = new Response(csvString, {
+      //   headers: {
+      //     "Content-Type": "text/csv",
+      //     "Content-Disposition": `attachment; filename="${filename}.csv"`,
+      //     "Access-Control-Allow-Origin": "*",
+      //   },
+      // });
+      return list_domains;
       // if (csvResponse.length <= 1 || csvResponse[0].length === 0) {
       //   return new Response("The CSV file is empty", { status: 200 });
       // } else {
