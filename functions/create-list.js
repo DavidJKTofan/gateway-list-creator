@@ -56,7 +56,7 @@ async function submitHandler({ request, env }) {
       //     "Access-Control-Allow-Origin": "*",
       //   },
       // });
-      return list_domains;
+      return JSON.stringify(list_domains);
       // if (csvResponse.length <= 1 || csvResponse[0].length === 0) {
       //   return new Response("The CSV file is empty", { status: 200 });
       // } else {
