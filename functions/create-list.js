@@ -49,14 +49,13 @@ async function submitHandler({ request, env }) {
         }
       }
       // Create a new Response object with the CSV string and set its MIME type to "text/csv"
-      // const csvResponse = new Response(csvString, {
-      //   headers: {
-      //     "Content-Type": "text/csv",
-      //     "Content-Disposition": `attachment; filename="${filename}.csv"`,
-      //     "Access-Control-Allow-Origin": "*",
-      //   },
-      // });
-      return JSON.stringify(list_domains);
+      const dataResponse = new Response(list_domains, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+      return dataResponse;
       // if (csvResponse.length <= 1 || csvResponse[0].length === 0) {
       //   return new Response("The CSV file is empty", { status: 200 });
       // } else {
