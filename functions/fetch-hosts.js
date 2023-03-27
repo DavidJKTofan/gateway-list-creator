@@ -45,13 +45,9 @@ async function submitHandler({ request, env }) {
           // Hosts file syntax rule
           let domain = line.split(" ")[1];
           domains.push(domain);
-          list_domains.push({"value": line[i].split(" ")[1]});
+          list_domains.push({"value": domain});
         }
       }
-      // RETURN DOMAIN LIST
-      console.log("DOMAINS LIST: ", list_domains)
-      return list_domains;
-
       // Convert the domains to a CSV string
       const csvString = domains.join("\n");
 
@@ -67,7 +63,7 @@ async function submitHandler({ request, env }) {
           "Access-Control-Allow-Origin": "*",
         },
       });
-      return csvResponse;
+      return [csvResponse, list_domains];
       // if (csvResponse.length <= 1 || csvResponse[0].length === 0) {
       //   return new Response("The CSV file is empty", { status: 200 });
       // } else {

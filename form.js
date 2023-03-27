@@ -33,13 +33,16 @@ form.addEventListener("submit", async (event) => {
   resultDiv.innerHTML = `Fetching ${type}...`;
   try {
     // Fetch and process the List
-    const response = await fetch(endpoint, {
+    const [response, list_domains] = await fetch(endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ url }),
     });
+
+    console.log(list_domains)
+    console.log(response)
 
     if (!response.ok) {
       resultDiv.innerHTML = `Error: ${response.status} ${response.statusText}`;
@@ -50,7 +53,7 @@ form.addEventListener("submit", async (event) => {
     // const csvUrl = window.URL.createObjectURL(csvBlob);
 
     //   resultDiv.innerHTML = `<p>Download the ${type} CSV file:</p> <a href="${csvUrl}" download="${lastPart}-${type}.csv">${lastPart}-${type}.csv</a>`;
-    var html_to_insert = `Domain list: ${response}`;
+    var html_to_insert = `Domain list: ${list_domains}`;
     resultDiv.innerHTML += html_to_insert;
   } catch (error) {
     resultDiv.innerHTML = `ERROR... ${error}...`;
