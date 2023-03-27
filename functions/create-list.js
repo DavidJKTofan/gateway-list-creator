@@ -49,7 +49,7 @@ async function submitHandler({ request, env }) {
         }
       }
       // Create a new Response object
-      const dataResponse = new Response(list_domains, {
+      const dataResponse = new Response(domains, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
