@@ -45,6 +45,7 @@ form.addEventListener("submit", async (event) => {
 
     if (!response.ok) {
       resultDiv.innerHTML = `Error: ${response.status} ${response.statusText}`;
+      resultDiv.innerHTML += `${response}`
       return;
     }
     // Convert Response to CSV Blob

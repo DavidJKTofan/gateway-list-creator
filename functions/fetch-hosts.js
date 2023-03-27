@@ -33,7 +33,6 @@ async function submitHandler({ request, env }) {
       let lines = responseBody.split("\n");
       // Limit the number of lines to a maximum of 4999 rows
       lines = lines.slice(1, 5000);
-      return lines;
       // Loop through the lines
       for (let i = 0; i < lines.length; i++) {
         let line = lines[i].trim();
