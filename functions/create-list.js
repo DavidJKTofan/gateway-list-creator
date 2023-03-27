@@ -21,7 +21,7 @@ async function submitHandler({ request, env }) {
     });
   } else if (
     request.method === "POST" &&
-    request.url.endsWith("/fetch-hosts")
+    request.url.endsWith("/create-list")
   ) {
     const { url } = await request.json();
     // Get Domains / Hostnames
