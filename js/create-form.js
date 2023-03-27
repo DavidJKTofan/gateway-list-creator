@@ -81,7 +81,7 @@ form.addEventListener("submit", async (event) => {
       }),
     });
     console.log("RESPONSE", response);
-    const jsons = await response.json();
+    const jsons = JSON.stringify(response);
     console.log(jsons.errors[0]);
 
     //   // BLOCKED BY CORS !!!!
@@ -121,7 +121,7 @@ form.addEventListener("submit", async (event) => {
     }
   } catch (error) {
     console.log("Failed...");
-    resultDiv.innerHTML = `ERROR when creating list... ${error}...`;
+    resultDiv.innerHTML += `ERROR when creating list... ${error}...`;
   }
 });
 
