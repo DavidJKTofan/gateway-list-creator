@@ -40,6 +40,7 @@ async function submitHandler({ request, env }) {
           // Adblock Plus syntax rule
           let domain = line.slice(2).split("^")[0];
           domains.push(domain);
+          list_domains.push({"value": lines[i].split(" ")[1]});
         } else if (line.startsWith("0.0.0.0")) {
           // Hosts file syntax rule
           let domain = line.split(" ")[1];
