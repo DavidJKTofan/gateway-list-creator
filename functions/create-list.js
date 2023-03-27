@@ -50,6 +50,7 @@ async function submitHandler({ request, env }) {
       }
       // const joineddomains = list_domains.join("\n");
       const joineddomains = JSON.stringify(list_domains);
+      return joineddomains;
       // Create a new Response object
       const dataResponse = new Response(joineddomains, {
         headers: {
