@@ -40,12 +40,12 @@ async function submitHandler({ request, env }) {
           // Adblock Plus syntax rule
           let domain = line.slice(2).split("^")[0];
           domains.push(domain);
-          list_domains.push({"value": line[i].split(" ")[1]});
+          // list_domains.push({"value": line[i].split(" ")[1]});
         } else if (line.startsWith("0.0.0.0")) {
           // Hosts file syntax rule
           let domain = line.split(" ")[1];
           domains.push(domain);
-          list_domains.push({"value": domain});
+          // list_domains.push({"value": domain});
         }
       }
       // Convert the domains to a CSV string
