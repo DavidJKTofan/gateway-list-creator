@@ -7,7 +7,7 @@ form.addEventListener("submit", async (event) => {
   const url = formData.get("url");
   const type = formData.get("type");
   const email = formData.get("email");
-  const token = formData.get("text");
+  const token = formData.get("token");
   const identifier = formData.get("identifier");
 
   const lastPart = url
