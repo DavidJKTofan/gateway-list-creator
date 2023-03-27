@@ -12,15 +12,21 @@ form.addEventListener("submit", async (event) => {
   const email = formData.get("email");
   const token = formData.get("token");
   const identifier = formData.get("identifier");
-  // Get List Name
-  const lastPart = url
-    .substring(url.lastIndexOf("/") + 1)
-    .replace(/\.[^/.]+$/, "");
-  // Check URL
+  // Clean up inputs
+  const maxLength = 70; // Maximum length allowed for the description
+  if (description.length > maxLength) {
+    description = description.slice(0, maxLength);
+  } else {
+    console.log("Good description...")
+  }
   if (!isValidUrl(url)) {
     resultDiv.innerHTML = "Error: Please enter a valid URL.";
     return;
   }
+  // Get List Name
+  const lastPart = url
+    .substring(url.lastIndexOf("/") + 1)
+    .replace(/\.[^/.]+$/, "");
   // Check type of List
   let endpoint;
   let list_type;
