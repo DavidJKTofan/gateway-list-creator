@@ -74,15 +74,15 @@ form.addEventListener("submit", async (event) => {
         accountid: `${identifier}`,
         data: JSON.stringify({
           description: "This is a test here",
-          items: [{ "value": "example.com" }],
+          items: [{"value": "example.com"}],
           name: `${lastPart}`,
           type: `${list_type}`,
         }),
       }),
     });
     console.log("RESPONSE", response);
-    const json = JSON.stringify(response);
-    console.log("JSON", json);
+    const jsons = await response.json();
+    console.log(jsons.errors[0]);
 
     //   // BLOCKED BY CORS !!!!
     //   // const gateway_url = `https://api.cloudflare.com/client/v4/accounts/${identifier}/gateway/lists`;
@@ -117,6 +117,7 @@ form.addEventListener("submit", async (event) => {
     } else {
       resultDiv.innerHTML += `<p>Creating List ${lastPart}...</p>`;
       resultDiv.innerHTML += `<p>Response Status: ${response.status}</p>`;
+      resultDiv.innerHTML += `<p>Result: ${jsons}</p>`;
     }
   } catch (error) {
     console.log("Failed...");
