@@ -84,7 +84,7 @@ form.addEventListener("submit", async (event) => {
       }),
     });
     console.log("RESPONSE", response);
-    const json = await response.json();
+    const json = JSON.stringify(response);
     console.log("JSON", json);
 
     // BLOCKED BY CORS !!!!
