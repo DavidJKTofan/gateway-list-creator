@@ -66,7 +66,8 @@ form.addEventListener("submit", async (event) => {
         "Content-Type": "application/json",
         "X-Auth-Email": `${email}`,
         // "X-Auth-Key": `${token}`, // Get Global API key (legacy)
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
+        "Access-Control-Allow-Origin": "*",
       },
       body: `{"description":"This is a test here","items":[{"value":"example.com"}],"name":"${lastPart}","type":"${list_type}"}`,
     };
