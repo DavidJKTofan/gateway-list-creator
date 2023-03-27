@@ -1,8 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Host List</title>
+    <title>Gateway List Creator</title>
+    <meta
+      name="description"
+      content="Create and download CSV files which contain domains, hostnames or IPs to use in Cloudflare Zero Trust Lists, especially useful for Gateway."
+    />
+    <meta
+      name="keywords"
+      content="zero trust, gateway, lists, domains, hostnames, cloudflare"
+    />
+    <link rel=icon href=favicon.png>
     <link rel="stylesheet" href="css/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body>
     <h1>Create Zero Trust List on Cloudflare Gateway</h1>
@@ -28,7 +38,14 @@
       <input type="url" id="url-input" name="url" required />
       <br /><br />
       <label for="description-input">List Description:</label>
-      <input type="text" id="description-input" name="description" maxlength="70" value="Insert List Description here" required />
+      <input
+        type="text"
+        id="description-input"
+        name="description"
+        maxlength="70"
+        value="Insert List Description here"
+        required
+      />
       <br /><br />
       <input
         type="radio"
@@ -85,7 +102,15 @@
       </small>
       <br /><br />
       <button type="submit">Create List</button>
-      <small>Your Cloudflare details are processed on server-side.</small>
+      <small
+        >Your Cloudflare details are processed on
+        <a
+          href="https://gist.github.com/DavidJKTofan/4b4e1a2b83d17aa8991c45e2289a8346"
+          target="_blank"
+          rel="nofollow external noopener noreferrer"
+          >server-side</a
+        >.</small
+      >
     </form>
 
     <div id="result"></div>

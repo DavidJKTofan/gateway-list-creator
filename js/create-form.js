@@ -124,7 +124,7 @@ form.addEventListener("submit", async (event) => {
     } else {
       resultDiv.innerHTML += `<p>Creating List ${lastPart}...</p>`;
       resultDiv.innerHTML += `<p>Response Status: ${response.status}</p>`;
-      resultDiv.innerHTML += `<p>Result: ${jsonresponse}</p>`;
+      resultDiv.innerHTML += `<p>Result: ${JSON.stringify(jsonresponse)}</p>`;
     }
   } catch (error) {
     console.log("Failed...");
