@@ -41,16 +41,18 @@ form.addEventListener("submit", async (event) => {
       body: JSON.stringify({ url }),
     });
     console.log(response);
-    console.log(response.json());
+    const jsons = await response.json()
+    console.log(jsons);
     // Check Status Code OK
     if (!response.ok) {
       resultDiv.innerHTML = `Error: ${response.status} ${response.statusText}`;
-      resultDiv.innerHTML += `${response}`;
+      resultDiv.innerHTML += `${jsons}`;
       return;
     }
     // Return HTML
     resultDiv.innerHTML = "Finalising... <br>";
-    resultDiv.innerHTML += `<p>The response is: ${response}</p>`;
+    resultDiv.innerHTML += `<p>Response Status: ${response.status}</p>`;
+    resultDiv.innerHTML += `<p>JSON: ${jsons}</p>`;
   } catch (error) {
     resultDiv.innerHTML = `ERROR... ${error}...`;
   }
