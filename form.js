@@ -66,6 +66,9 @@ form.addEventListener("submit", async (event) => {
       method: "OPTIONS",
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "*",
       },
     };
     fetch(gateway_url, preflight_options)
