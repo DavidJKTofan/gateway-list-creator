@@ -8,6 +8,7 @@ form.addEventListener("submit", async (event) => {
   // Get Form Data
   const url = formData.get("url");
   const type = formData.get("type");
+  const description = formData.get("description");
   const email = formData.get("email");
   const token = formData.get("token");
   const identifier = formData.get("identifier");
@@ -64,7 +65,7 @@ form.addEventListener("submit", async (event) => {
       authorization: `${token}`,
       accountid: `${identifier}`,
       data: {
-        description: "This is a test here",
+        description: `${description}`,
         name: `${lastPart}`,
         type: `${list_type}`,
         items: jsons,
