@@ -61,35 +61,44 @@ form.addEventListener("submit", async (event) => {
   // Cloudflare API call
   // Create Zero Trust List
   try {
+    const gateway_url = `https://api.cloudflare.com/client/v4/accounts/${identifier}/gateway/lists`;
+    const preflight_options = {
+      method: "OPTIONS",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    fetch(gateway_url, preflight_options)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
     const options = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "X-Auth-Email": `${email}`,
         // "X-Auth-Key": `${token}`, // Get Global API key (legacy)
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
         "Access-Control-Allow-Headers": "*",
       },
       // body: `{"description":"This is a test here","items":[{"value":"example.com"}],"name":"${lastPart}","type":"${list_type}"}`,
       body: JSON.stringify({
-        description: 'This is a test here',
-        items: [
-          { value: 'example.com' }
-        ],
+        description: "This is a test here",
+        items: [{ value: "example.com" }],
         name: `${lastPart}`,
-        type: `${list_type}`
-      })
+        type: `${list_type}`,
+      }),
     };
-    console.log("OPTIONS: ", options)
-    const response = await fetch(
-      `https://api.cloudflare.com/client/v4/accounts/${identifier}/gateway/lists`,
-      options
-    )
-    console.log("RESPONSE: ", response)
-    const json = await response.json()
-    console.log("JSON: ", json)
+    console.log("OPTIONS: ", options);
+    const response = await fetch(gateway_url, options);
+    console.log("RESPONSE: ", response);
+    const json = await response.json();
+    console.log("JSON: ", json);
 
     if (!response.ok) {
       resultDiv.innerHTML = `Error: ${response.status} ${response.statusText}`;
@@ -98,7 +107,7 @@ form.addEventListener("submit", async (event) => {
       resultDiv.innerHTML = `List ${lastPart} created...`;
     }
   } catch (error) {
-    console.log("Failed...")
+    console.log("Failed...");
     resultDiv.innerHTML = `ERROR... ${error}...`;
   }
 });
