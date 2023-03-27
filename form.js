@@ -61,47 +61,55 @@ form.addEventListener("submit", async (event) => {
   // Cloudflare API call
   // Create Zero Trust List
   try {
-    const gateway_url = `https://api.cloudflare.com/client/v4/accounts/${identifier}/gateway/lists`;
-    const preflight_options = {
-      method: "OPTIONS",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        "Access-Control-Allow-Headers": "*",
-      },
-    };
-    fetch(gateway_url, preflight_options)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    const options = {
+    const workers_url = `https://cloudflare-api.cf-testing.workers.dev/?identifier=${identifier}`;
+    const response = await fetch(workers_url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-Auth-Email": `${email}`,
-        // "X-Auth-Key": `${token}`, // Get Global API key (legacy)
-        Authorization: `Bearer ${token}`,
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        "Access-Control-Allow-Headers": "*",
       },
-      // body: `{"description":"This is a test here","items":[{"value":"example.com"}],"name":"${lastPart}","type":"${list_type}"}`,
       body: JSON.stringify({
-        description: "This is a test here",
-        items: [{ value: "example.com" }],
-        name: `${lastPart}`,
-        type: `${list_type}`,
+        // include the body data here
+        email: `${email}`,
+        authorization: `${token}`,
+        accountid: `${identifier}`,
+        data: JSON.stringify({
+          description: "This is a test here",
+          items: [{ value: "example.com" }],
+          name: `${lastPart}`,
+          type: `${list_type}`,
+        }),
       }),
-    };
-    console.log("OPTIONS: ", options);
-    const response = await fetch(gateway_url, options);
-    console.log("RESPONSE: ", response);
+    });
+    console.log("RESPONSE", response);
     const json = await response.json();
-    console.log("JSON: ", json);
+    console.log("JSON", json);
+
+    // BLOCKED BY CORS !!!!
+    // const gateway_url = `https://api.cloudflare.com/client/v4/accounts/${identifier}/gateway/lists`;
+    // const options = {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "X-Auth-Email": `${email}`,
+    //     // "X-Auth-Key": `${token}`, // Get Global API key (legacy)
+    //     "Authorization": `Bearer ${token}`,
+    //     "Access-Control-Allow-Origin": "*",
+    //     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    //     "Access-Control-Allow-Headers": "*",
+    //   },
+    //   // body: `{"description":"This is a test here","items":[{"value":"example.com"}],"name":"${lastPart}","type":"${list_type}"}`,
+    //   body: JSON.stringify({
+    //     description: "This is a test here",
+    //     items: [{ value: "example.com" }],
+    //     name: `${lastPart}`,
+    //     type: `${list_type}`,
+    //   }),
+    // };
+    // console.log("OPTIONS: ", options);
+    // const response = await fetch(gateway_url, options);
+    // console.log("RESPONSE: ", response);
+    // const json = await response.json();
+    // console.log("JSON: ", json);
 
     if (!response.ok) {
       resultDiv.innerHTML = `Error: ${response.status} ${response.statusText}`;
