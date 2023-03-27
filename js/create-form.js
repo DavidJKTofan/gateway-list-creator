@@ -63,12 +63,12 @@ form.addEventListener("submit", async (event) => {
       email: `${email}`,
       authorization: `${token}`,
       accountid: `${identifier}`,
-      data: JSON.stringify({
+      data: {
         description: "This is a test here",
         name: `${lastPart}`,
         type: `${list_type}`,
         items: jsons,
-      }),
+      },
     });
     console.log("BODY: ", bodycontent)
     const response = await fetch(workers_url, {
@@ -82,8 +82,7 @@ form.addEventListener("submit", async (event) => {
       body: bodycontent,
     });
     console.log("RESPONSE", response);
-    console.log("TEXT", response.text);
-    const jsonresponse = JSON.stringify(response);
+    const jsonresponse = response.json();
     console.log(jsonresponse);
 
     //   // BLOCKED BY CORS !!!!
