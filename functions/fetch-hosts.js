@@ -27,6 +27,7 @@ async function submitHandler({ request, env }) {
 
     try {
       let domains = [];
+      let list_domains = [];
       let response = await fetch(url);
       let responseBody = await response.text();
       let lines = responseBody.split("\n");
@@ -43,8 +44,12 @@ async function submitHandler({ request, env }) {
           // Hosts file syntax rule
           let domain = line.split(" ")[1];
           domains.push(domain);
+          list_domains.push({"value": lines[i].split(" ")[1]});
         }
       }
+      // RETURN DOMAIN LIST
+      console.log("DOMAINS LIST: ", list_domains)
+      return list_domains;
 
       // Convert the domains to a CSV string
       const csvString = domains.join("\n");

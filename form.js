@@ -45,15 +45,12 @@ form.addEventListener("submit", async (event) => {
       resultDiv.innerHTML = `Error: ${response.status} ${response.statusText}`;
       return;
     }
+    // Convert Response to CSV Blob
+    // const csvBlob = await response.blob();
+    // const csvUrl = window.URL.createObjectURL(csvBlob);
 
-    const csvBlob = await response.blob();
-    const csvUrl = window.URL.createObjectURL(csvBlob);
-
-    resultDiv.innerHTML = `
-  <p>Download the ${type} CSV file:</p>
-  <a href="${csvUrl}" download="${lastPart}-${type}.csv">${lastPart}-${type}.csv</a>
-        `;
-    var html_to_insert = "<p>New paragraph</p>";
+    //   resultDiv.innerHTML = `<p>Download the ${type} CSV file:</p> <a href="${csvUrl}" download="${lastPart}-${type}.csv">${lastPart}-${type}.csv</a>`;
+    var html_to_insert = `Domain list: ${response}`;
     resultDiv.innerHTML += html_to_insert;
   } catch (error) {
     resultDiv.innerHTML = `ERROR... ${error}...`;
@@ -119,6 +116,8 @@ form.addEventListener("submit", async (event) => {
       return;
     } else {
       resultDiv.innerHTML = `List ${lastPart} created...`;
+      var html_to_insert = `Response: ${response}`;
+      resultDiv.innerHTML += html_to_insert;
     }
   } catch (error) {
     console.log("Failed...");
