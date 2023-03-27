@@ -67,9 +67,9 @@ form.addEventListener("submit", async (event) => {
         "X-Auth-Email": `${email}`,
         // "X-Auth-Key": `${token}`, // Get Global API key (legacy)
         "Authorization": `Bearer ${token}`,
-        // "Access-Control-Allow-Origin": "*",
-        // "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        // "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
       },
       body: `{"description":"This is a test here","items":[{"value":"example.com"}],"name":"${lastPart}","type":"${list_type}"}`,
     };
