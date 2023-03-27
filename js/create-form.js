@@ -83,7 +83,7 @@ form.addEventListener("submit", async (event) => {
     console.log("RESPONSE", response);
     console.log("TEXT", response.text);
     const jsonresponse = JSON.stringify(response);
-    console.log(jsonresponse.errors[0]);
+    console.log(jsonresponse);
 
     //   // BLOCKED BY CORS !!!!
     //   // const gateway_url = `https://api.cloudflare.com/client/v4/accounts/${identifier}/gateway/lists`;
