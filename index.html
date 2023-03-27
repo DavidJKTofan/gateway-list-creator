@@ -19,11 +19,29 @@
       <label for="url-input">URL:</label>
       <input type="url" id="url-input" name="url" required />
       <br /><br />
-      <input type="radio" id="hosts" name="type" value="hosts" checked required />
-      <label for="hosts" title="Only fetches lists starting with '||' or '0.0.0.0'.">Fetch hosts</label>
+      <input
+        type="radio"
+        id="hosts"
+        name="type"
+        value="hosts"
+        checked
+        required
+      />
+      <label
+        for="hosts"
+        title="Only fetches lists starting with '||' or '0.0.0.0'."
+        >Fetch hosts</label
+      >
+      <br />
+      <small>Fetches only lists starting with '||' or '0.0.0.0'.</small>
+      <br />
       <br />
       <input type="radio" id="networks" name="type" value="networks" required />
-      <label for="networks" title="Only fetches lists that contain IPv4 IPs.">Fetch Network IPs</label>
+      <label for="networks" title="Only fetches lists that contain IPs."
+        >Fetch IPs</label
+      >
+      <br />
+      <small>Fetches only lists that contain IP addresses.</small>
       <br /><br />
       <button type="submit">Fetch</button>
     </form>

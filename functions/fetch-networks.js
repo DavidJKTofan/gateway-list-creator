@@ -33,11 +33,11 @@ async function submitHandler({ request, env }) {
       //lines = lines.filter((line) => !line.startsWith("#") && line.includes("/") );
       // Limit the number of lines to a maximum of 4999 rows
       lines = lines.slice(0, 4999);
-      var len = lines.length
-      var i = 0
+      var len = lines.length;
+      var i = 0;
       while (i < len) {
         networks.push(lines[i]);
-        i++
+        i++;
       }
 
       // Convert the network IPs to a CSV string
@@ -56,7 +56,11 @@ async function submitHandler({ request, env }) {
         },
       });
 
-      return csvResponse;
+      if (csvResponse.length <= 1 && csvResponse[0].length === 0) {
+        return new Response("The CSV file is empty", { status: 200 });
+      } else {
+        return csvResponse;
+      }
     } catch (error) {
       return new Response(error.message, {
         status: 500,
