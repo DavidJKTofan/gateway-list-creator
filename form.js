@@ -1,6 +1,7 @@
 const form = document.getElementById("url-form");
 const resultDiv = document.getElementById("result");
 
+// Form Submit Event
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   const formData = new FormData(form);
@@ -69,19 +70,17 @@ form.addEventListener("submit", async (event) => {
         "Authorization": `Bearer ${token}`,
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Headers": "*",
       },
       body: `{"description":"This is a test here","items":[{"value":"example.com"}],"name":"${lastPart}","type":"${list_type}"}`,
     };
+    console.log("OPTIONS: ", options)
     const response = await fetch(
       `https://api.cloudflare.com/client/v4/accounts/${identifier}/gateway/lists`,
       options
     )
-      // .then((response) => response.json())
-      // .then((response) => console.log(response))
-      // .catch((err) => console.error(err));
-    const json = await response.json()
     console.log("RESPONSE: ", response)
+    const json = await response.json()
     console.log("JSON: ", json)
 
     if (!response.ok) {
@@ -91,6 +90,7 @@ form.addEventListener("submit", async (event) => {
       resultDiv.innerHTML = `List ${lastPart} created...`;
     }
   } catch (error) {
+    console.log("Failed...")
     resultDiv.innerHTML = `ERROR... ${error}...`;
   }
 });
