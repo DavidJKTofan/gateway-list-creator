@@ -72,7 +72,15 @@ form.addEventListener("submit", async (event) => {
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
         "Access-Control-Allow-Headers": "*",
       },
-      body: `{"description":"This is a test here","items":[{"value":"example.com"}],"name":"${lastPart}","type":"${list_type}"}`,
+      // body: `{"description":"This is a test here","items":[{"value":"example.com"}],"name":"${lastPart}","type":"${list_type}"}`,
+      body: JSON.stringify({
+        description: 'This is a test here',
+        items: [
+          { value: 'example.com' }
+        ],
+        name: `${lastPart}`,
+        type: `${list_type}`
+      })
     };
     console.log("OPTIONS: ", options)
     const response = await fetch(
