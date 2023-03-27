@@ -70,7 +70,7 @@ form.addEventListener("submit", async (event) => {
         items: jsons,
       },
     });
-    console.log("BODY: ", bodycontent)
+    console.log("Sending data: ", bodycontent)
     const response = await fetch(workers_url, {
       method: "POST",
       headers: {
@@ -81,8 +81,7 @@ form.addEventListener("submit", async (event) => {
       },
       body: bodycontent,
     });
-    console.log("RESPONSE", response);
-    const jsonresponse = response.json();
+    const jsonresponse = await response.json();
     console.log(jsonresponse);
 
     //   // BLOCKED BY CORS !!!!
