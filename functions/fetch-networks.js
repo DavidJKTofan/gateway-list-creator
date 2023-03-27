@@ -30,13 +30,13 @@ async function submitHandler({ request, env }) {
       let response = await fetch(url);
       let responseBody = await response.text();
       let lines = responseBody.split("\n");
-      lines = lines.filter((line) => !line.startsWith("#") && line.includes("/") );
+      //lines = lines.filter((line) => !line.startsWith("#") && line.includes("/") );
       // Limit the number of lines to a maximum of 4999 rows
       lines = lines.slice(0, 4999);
       var len = lines.length
       var i = 0
       while (i < len) {
-        networks.push({"value": lines[i]});
+        networks.push(lines[i]);
         i++
       }
 
