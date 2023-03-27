@@ -48,7 +48,7 @@ async function submitHandler({ request, env }) {
           list_domains.push({"value": domain });
         }
       }
-      // Create a new Response object with the CSV string and set its MIME type to "text/csv"
+      // Create a new Response object
       const dataResponse = new Response(list_domains, {
         headers: {
           "Content-Type": "application/json",

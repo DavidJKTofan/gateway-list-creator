@@ -5,21 +5,21 @@ const resultDiv = document.getElementById("result");
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   const formData = new FormData(form);
+  // Get Form Data
   const url = formData.get("url");
   const type = formData.get("type");
   const email = formData.get("email");
   const token = formData.get("token");
   const identifier = formData.get("identifier");
-
+  // Get List Name
   const lastPart = url
     .substring(url.lastIndexOf("/") + 1)
     .replace(/\.[^/.]+$/, "");
-
+  // Check URL
   if (!isValidUrl(url)) {
     resultDiv.innerHTML = "Error: Please enter a valid URL.";
     return;
   }
-
   // Check type of List
   let endpoint;
   let list_type;
@@ -40,21 +40,16 @@ form.addEventListener("submit", async (event) => {
       },
       body: JSON.stringify({ url }),
     });
-
-    console.log(response)
-
+    console.log(JSON.stringify(response));
+    // Check Status Code OK
     if (!response.ok) {
       resultDiv.innerHTML = `Error: ${response.status} ${response.statusText}`;
-      resultDiv.innerHTML += `${response}`
+      resultDiv.innerHTML += `${response}`;
       return;
     }
-    // Convert Response to CSV Blob
-    const csvBlob = await response.blob();
-    const csvUrl = window.URL.createObjectURL(csvBlob);
-
-    resultDiv.innerHTML = "Finalising... <br>..."
-    resultDiv.innerHTML += `<p>Download the ${type} CSV file:</p> <a href="${csvUrl}" download="${lastPart}-${type}.csv">${lastPart}-${type}.csv</a>`;
-    // resultDiv.innerHTML = `<p>Download the ${type} CSV file:</p> <a href="${csvUrl}" download="${lastPart}-${type}.csv">${lastPart}-${type}.csv</a>`;
+    // Return HTML
+    resultDiv.innerHTML = "Finalising... <br>";
+    resultDiv.innerHTML += `<p>The response is: ${response}</p>`;
   } catch (error) {
     resultDiv.innerHTML = `ERROR... ${error}...`;
   }
