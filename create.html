@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Host List</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Create Zero Trust List on Cloudflare Gateway</h1>
+    <p>
+      Fetch the first 4999 hostnames from a list from
+      <a
+        href="https://filterlists.com/"
+        target="_blank"
+        rel="nofollow external noopener noreferrer"
+        >FilterLists</a
+      >
+      and create a new Zero Trust List on your
+      <a
+        href="https://developers.cloudflare.com/cloudflare-one/policies/filtering/"
+        target="_blank"
+        rel="nofollow external noopener noreferrer"
+        >Cloudflare Gateway</a
+      >
+      Account.
+    </p>
+    <form id="url-form">
+      <label for="url-input">URL:</label>
+      <input type="url" id="url-input" name="url" required />
+      <br /><br />
+      <input
+        type="radio"
+        id="hosts"
+        name="type"
+        value="hosts"
+        checked
+        required
+      />
+      <label
+        for="hosts"
+        title="Only fetches lists starting with '||' or '0.0.0.0'."
+        >Fetch hosts</label
+      >
+      <br />
+      <small>Fetches only lists starting with '||' or '0.0.0.0'.</small>
+      <br />
+      <br />
+      <input type="radio" id="networks" name="type" value="networks" required />
+      <label for="networks" title="Only fetches lists that contain IPs."
+        >Fetch IPs</label
+      >
+      <br />
+      <small>Fetches only lists that contain IP addresses.</small>
+      <br /><br />
+      <hr />
+      <br />
+      <label for="email-input">User Email:</label>
+      <input type="email" id="email-input" name="email" required />
+      <small>Use your Cloudflare User Email.</small>
+      <br /><br />
+      <label for="identifier-input">Account Identifier:</label>
+      <input type="text" id="identifier-input" name="identifier" required />
+      <small
+        >Use your
+        <a
+          href="https://developers.cloudflare.com/fundamentals/get-started/basic-tasks/find-account-and-zone-ids/"
+          target="_blank"
+          rel="nofollow external noopener noreferrer"
+          >Account ID</a
+        >.</small
+      >
+      <br /><br />
+      <label for="token-input">Token:</label>
+      <input type="text" id="token-input" name="token" required />
+      <small
+        >Use an
+        <a
+          href="https://developers.cloudflare.com/fundamentals/api/get-started/create-token/"
+          target="_blank"
+          rel="nofollow external noopener noreferrer"
+          >API Token</a
+        >.
+      </small>
+      <br /><br />
+      <button type="submit">Create List</button>
+      <small>Your Cloudflare details are only processed on client-side.</small>
+    </form>
+
+    <div id="result"></div>
+    <script src="form.js"></script>
+  </body>
+</html>

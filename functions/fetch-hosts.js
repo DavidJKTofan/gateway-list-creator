@@ -62,7 +62,7 @@ async function submitHandler({ request, env }) {
         },
       });
 
-      if (csvResponse.length <= 1 && csvResponse[0].length === 0) {
+      if (csvResponse.length <= 1 || csvResponse[0].length === 0) {
         return new Response("The CSV file is empty", { status: 200 });
       } else {
         return csvResponse;
