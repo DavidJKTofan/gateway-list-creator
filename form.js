@@ -40,6 +40,7 @@ form.addEventListener("submit", async (event) => {
       },
       body: JSON.stringify({ url }),
     });
+    console.log("HOST-RESPONSE: ", response)
 
     if (!response.ok) {
       resultDiv.innerHTML = `Error: ${response.status} ${response.statusText}`;

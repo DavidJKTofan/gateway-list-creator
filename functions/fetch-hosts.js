@@ -74,6 +74,7 @@ async function submitHandler({ request, env }) {
       //   return csvResponse;
       // }
     } catch (error) {
+      console.log("Something went wrong here...");
       return new Response(error.message, {
         status: 500,
         headers: { "Access-Control-Allow-Origin": "*" },
