@@ -13,8 +13,8 @@ form.addEventListener("submit", async (event) => {
   }
 
   let endpoint;
-  if (type === "domains") {
-    endpoint = "/fetch-domains";
+  if (type === "networks") {
+    endpoint = "/fetch-networks";
   } else {
     endpoint = "/fetch-hosts";
   }

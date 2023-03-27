@@ -26,28 +26,22 @@ async function submitHandler({ request, env }) {
     const { url } = await request.json();
 
     try {
-      let domains = [];
+      let networks = [];
       let response = await fetch(url);
       let responseBody = await response.text();
       let lines = responseBody.split("\n");
+      lines = lines.filter((line) => !line.startsWith("#") && line.includes("/") );
       // Limit the number of lines to a maximum of 4999 rows
-      lines = lines.slice(1, 5000);
-      // Loop through the lines
-      for (let i = 0; i < lines.length; i++) {
-        let line = lines[i].trim();
-        if (line.startsWith("||")) {
-          // Adblock Plus syntax rule
-          let domain = line.slice(2).split("^")[0];
-          domains.push(domain);
-        } else if (line.startsWith("0.0.0.0")) {
-          // Hosts file syntax rule
-          let domain = line.split(" ")[1];
-          domains.push(domain);
-        }
+      lines = lines.slice(0, 4999);
+      var len = lines.length
+      var i = 0
+      while (i < len) {
+        networks.push({"value": lines[i]});
+        i++
       }
 
-      // Convert the domains to a CSV string
-      const csvString = domains.join("\n");
+      // Convert the network IPs to a CSV string
+      const csvString = networks.join("\n");
 
       // Get the filename from the URL
       const urlObj = new URL(url);
@@ -62,11 +56,7 @@ async function submitHandler({ request, env }) {
         },
       });
 
-      if (csvResponse.length <= 1 && csvResponse[0].length === 0) {
-        return new Response("The CSV file is empty", { status: 200 });
-      } else {
-        return csvResponse;
-      }
+      return csvResponse;
     } catch (error) {
       return new Response(error.message, {
         status: 500,
