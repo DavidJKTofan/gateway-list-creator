@@ -31,6 +31,8 @@ form.addEventListener("submit", async (event) => {
     list_type = "DOMAIN";
   }
   resultDiv.innerHTML = `Fetching ${type}...`;
+  // jsons
+  let jsons;
   try {
     // Fetch and process the List
     const response = await fetch(endpoint, {
@@ -40,9 +42,7 @@ form.addEventListener("submit", async (event) => {
       },
       body: JSON.stringify({ url }),
     });
-    console.log(response);
-    const jsons = await response.json();
-    console.log(jsons);
+    jsons = await response.json();
     // Check Status Code OK
     if (!response.ok) {
       resultDiv.innerHTML = `Error: ${response.status} ${response.statusText}`;
@@ -74,15 +74,16 @@ form.addEventListener("submit", async (event) => {
         accountid: `${identifier}`,
         data: JSON.stringify({
           description: "This is a test here",
-          items: [{"value": "example.com"}],
+          items: jsons,
           name: `${lastPart}`,
           type: `${list_type}`,
         }),
       }),
     });
     console.log("RESPONSE", response);
-    const jsons = JSON.stringify(response);
-    console.log(jsons.errors[0]);
+    console.log("TEXT", response.text);
+    const jsonresponse = JSON.stringify(response);
+    console.log(jsonresponse.errors[0]);
 
     //   // BLOCKED BY CORS !!!!
     //   // const gateway_url = `https://api.cloudflare.com/client/v4/accounts/${identifier}/gateway/lists`;
@@ -117,7 +118,7 @@ form.addEventListener("submit", async (event) => {
     } else {
       resultDiv.innerHTML += `<p>Creating List ${lastPart}...</p>`;
       resultDiv.innerHTML += `<p>Response Status: ${response.status}</p>`;
-      resultDiv.innerHTML += `<p>Result: ${jsons}</p>`;
+      resultDiv.innerHTML += `<p>Result: ${jsonresponse}</p>`;
     }
   } catch (error) {
     console.log("Failed...");
