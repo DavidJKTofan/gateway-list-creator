@@ -59,6 +59,18 @@ form.addEventListener("submit", async (event) => {
   // Create Zero Trust List
   try {
     const workers_url = `https://cloudflare-api.cf-testing.workers.dev/?identifier=${identifier}`;
+    const bodycontent = JSON.stringify({
+      email: `${email}`,
+      authorization: `${token}`,
+      accountid: `${identifier}`,
+      data: JSON.stringify({
+        description: "This is a test here",
+        name: `${lastPart}`,
+        type: `${list_type}`,
+        items: jsons,
+      }),
+    });
+    console.log("BODY: ", bodycontent)
     const response = await fetch(workers_url, {
       method: "POST",
       headers: {
@@ -67,18 +79,7 @@ form.addEventListener("submit", async (event) => {
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
         "Access-Control-Allow-Headers": "*",
       },
-      body: JSON.stringify({
-        // include the body data here
-        email: `${email}`,
-        authorization: `${token}`,
-        accountid: `${identifier}`,
-        data: JSON.stringify({
-          description: "This is a test here",
-          items: jsons,
-          name: `${lastPart}`,
-          type: `${list_type}`,
-        }),
-      }),
+      body: bodycontent,
     });
     console.log("RESPONSE", response);
     console.log("TEXT", response.text);
