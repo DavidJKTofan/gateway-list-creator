@@ -61,12 +61,12 @@ async function submitHandler({ request, env }) {
           "Access-Control-Allow-Origin": "*",
         },
       });
-
-      if (csvResponse.length <= 1 || csvResponse[0].length === 0) {
-        return new Response("The CSV file is empty", { status: 200 });
-      } else {
-        return csvResponse;
-      }
+      return csvResponse;
+      // if (csvResponse.length <= 1 || csvResponse[0].length === 0) {
+      //   return new Response("The CSV file is empty", { status: 200 });
+      // } else {
+      //   return csvResponse;
+      // }
     } catch (error) {
       return new Response(error.message, {
         status: 500,
