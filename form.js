@@ -10,6 +10,10 @@ form.addEventListener("submit", async (event) => {
   const token = formData.get("text");
   const identifier = formData.get("identifier");
 
+  const lastPart = url
+    .substring(url.lastIndexOf("/") + 1)
+    .replace(/\.[^/.]+$/, "");
+
   if (!isValidUrl(url)) {
     resultDiv.innerHTML = "Error: Please enter a valid URL.";
     return;
@@ -44,10 +48,6 @@ form.addEventListener("submit", async (event) => {
     const csvBlob = await response.blob();
     const csvUrl = window.URL.createObjectURL(csvBlob);
 
-    const lastPart = url
-      .substring(url.lastIndexOf("/") + 1)
-      .replace(/\.[^/.]+$/, "");
-
     resultDiv.innerHTML = `
   <p>Download the ${type} CSV file:</p>
   <a href="${csvUrl}" download="${lastPart}-${type}.csv">${lastPart}-${type}.csv</a>
@@ -66,7 +66,7 @@ form.addEventListener("submit", async (event) => {
         "Content-Type": "application/json",
         "X-Auth-Email": `${email}`,
         // "X-Auth-Key": `${token}`, // Get Global API key (legacy)
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: `{"description":"This is a test here","items":[{"value":"example.com"}],"name":"${lastPart}","type":"${list_type}"}`,
     };
