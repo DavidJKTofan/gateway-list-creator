@@ -21,7 +21,7 @@ async function submitHandler({ request, env }) {
     });
   } else if (
     request.method === "POST" &&
-    request.url.endsWith("/fetch-hosts")
+    request.url.endsWith("/fetch-networks")
   ) {
     const { url } = await request.json();
 
