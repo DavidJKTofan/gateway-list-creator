@@ -77,9 +77,12 @@ form.addEventListener("submit", async (event) => {
       `https://api.cloudflare.com/client/v4/accounts/${identifier}/gateway/lists`,
       options
     )
-      .then((response) => response.json())
-      .then((response) => console.log(response))
-      .catch((err) => console.error(err));
+      // .then((response) => response.json())
+      // .then((response) => console.log(response))
+      // .catch((err) => console.error(err));
+    const json = await response.json()
+    console.log("RESPONSE: ", response)
+    console.log("JSON: ", json)
 
     if (!response.ok) {
       resultDiv.innerHTML = `Error: ${response.status} ${response.statusText}`;
