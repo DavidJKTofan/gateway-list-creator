@@ -4,7 +4,7 @@ export async function onRequestPost({ request, env }) {
 
 async function submitHandler({ request, env }) {
   if (request.method === "OPTIONS") {
-    // Handle preflight requests
+    // Handle CORS preflight requests
     return new Response(null, {
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -24,7 +24,7 @@ async function submitHandler({ request, env }) {
     request.url.endsWith("/fetch-networks")
   ) {
     const { url } = await request.json();
-
+    // Get network IPs
     try {
       let networks = [];
       let response = await fetch(url);
@@ -55,12 +55,13 @@ async function submitHandler({ request, env }) {
           "Access-Control-Allow-Origin": "*",
         },
       });
-
-      if (csvResponse.length <= 1 || csvResponse[0].length === 0) {
-        return new Response("The CSV file is empty", { status: 200 });
-      } else {
-        return csvResponse;
-      }
+      // Return CSV file
+      return csvResponse;
+      // if (csvResponse.length <= 1 || csvResponse[0].length === 0) {
+      //   return new Response("The CSV file is empty", { status: 200 });
+      // } else {
+      //   return csvResponse;
+      // }
     } catch (error) {
       return new Response(error.message, {
         status: 500,
